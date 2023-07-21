@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const profilesTable = document.getElementById("profilesTable");
   const profilesTBody = profilesTable.querySelector("tbody");
   const clearListButton = document.getElementById("clearListButton");
-  const refreshButton = document.getElementById("refreshButton");
+  const updateButton = document.getElementById("updateButton");
   const exportCSVButton = document.getElementById("exportCSVButton");
   const totalProfilesElement = document.getElementById("totalProfiles");
 
@@ -35,8 +35,8 @@ document.addEventListener("DOMContentLoaded", function () {
     displayProfilesFromStorage();
   }
 
-  // Function to refresh and append new profiles if not present
-  function refreshList() {
+  // Function to update and append new profiles if not present
+  function updateList() {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       chrome.tabs.sendMessage(
         tabs[0].id,
@@ -76,8 +76,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // Event listener for clear list button
   clearListButton.addEventListener("click", clearList);
 
-  // Event listener for refresh button
-  refreshButton.addEventListener("click", refreshList);
+  // Event listener for update button
+  updateButton.addEventListener("click", updateList);
 
   // Event listener for export to CSV button
   exportCSVButton.addEventListener("click", exportToCSV);
