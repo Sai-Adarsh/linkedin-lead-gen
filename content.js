@@ -6,12 +6,25 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       )
     );
 
-    const linkedinURLs =
+    const likedLinkedinURLs =
       Array.from(
         document.querySelectorAll(
           "li.social-details-reactors-tab-body-list-item.artdeco-list__item.full-width a.link-without-hover-state"
         )
       ).map((link) => link.href) || [];
+
+    const alsoViewedlinkedinURLs = Array.from(
+      new Set(
+        Array.from(
+          document.querySelectorAll(
+            'li.artdeco-list__item.pvs-list__item--line-separated.pvs-list__item--one-column a[data-field="browsemap_card_click"]'
+          ),
+          (linkElement) =>
+            new URL(linkElement.href).origin +
+            new URL(linkElement.href).pathname
+        )
+      )
+    );
 
     const profiles =
       profileLinks.map(function (link) {
@@ -21,7 +34,11 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       }) || [];
 
     // Combine profile links and LinkedIn URLs into one array
-    const combinedProfiles = [...profiles, ...linkedinURLs];
+    const combinedProfiles = [
+      ...profiles,
+      ...likedLinkedinURLs,
+      ...alsoViewedlinkedinURLs,
+    ];
 
     sendResponse({ profiles: combinedProfiles });
   }
