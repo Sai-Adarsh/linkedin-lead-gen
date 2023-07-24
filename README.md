@@ -4,4 +4,5 @@ Chrome extension to export LinkedIn profiles (CSV) from LinkedIn search, likes, 
 - [x] Likes
 - [x] People also viewed
 - [ ] People you may know
+- [ ] Post mentions
 - [ ] Comments
